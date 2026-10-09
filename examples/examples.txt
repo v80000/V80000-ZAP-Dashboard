@@ -1,0 +1,5 @@
+# Un dominio por línea. Las líneas que empiezan por # se ignoran.
+# Sustituye estos ejemplos por objetivos sobre los que tengas
+# autorización expresa para escanear -- ver README.md.
+https://example.com
+https://example.org
