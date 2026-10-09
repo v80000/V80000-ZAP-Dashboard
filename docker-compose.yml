@@ -1,0 +1,27 @@
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "${DASHBOARD_PORT:-8000}:8000"
+    volumes:
+      # Socket del host: permite lanzar contenedores ZAP "hermanos"
+      # (Docker-outside-of-Docker). Da control root sobre el host a
+      # quien pueda hablar con este backend -- ver README, sección
+      # "Seguridad".
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    environment:
+      - RESULTS_DIR=/data/results
+      # Ruta REAL en el host para ./data. Los contenedores ZAP hijos
+      # los lanza el daemon del host, así que necesitan la ruta del
+      # host, no la ruta interna de este contenedor. Si docker compose
+      # no te resuelve ${PWD} bien (algunos entornos Windows), pon la
+      # ruta absoluta a mano en tu .env.
+      - HOST_DATA_DIR=${PWD}/data
+      - ZAP_IMAGE=${ZAP_IMAGE:-ghcr.io/zaproxy/zaproxy:2.17.0}
+    restart: unless-stopped
+
+volumes:
+  zap_dashboard_zap_home:
