@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZAP Batch Dashboard</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-title">
+    <span class="topbar-mark">ZAP</span>
+    <h1>Batch dashboard</h1>
+  </div>
+  <p class="topbar-sub">
+    Escaneos OWASP ZAP por lotes, dockerizados. Un full-scan lanza ataques reales
+    (spidering + escáner activo) — úsalo solo contra objetivos con autorización expresa.
+  </p>
+</header>
+
+<main>
+  <section class="panel" id="panel-targets">
+    <h2>1. Lote de dominios</h2>
+    <p class="hint">Un dominio por línea, con http:// o https:// (si lo omites, se asume https).</p>
+    <textarea id="targets-input" rows="6" placeholder="https://ejemplo.com&#10;https://otroejemplo.com"></textarea>
+    <div class="row">
+      <label class="file-btn">
+        Cargar .txt
+        <input type="file" id="targets-file" accept=".txt" hidden>
+      </label>
+      <span id="targets-count" class="count">0 dominios</span>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-config">
+    <h2>2. Configuración del ataque</h2>
+    <p class="hint">Cada parámetro trae su explicación — pulsa <span class="i-badge">i</span> junto al campo.</p>
+    <div id="param-groups"></div>
+  </section>
+
+  <section class="panel" id="panel-launch">
+    <h2>3. Lanzar</h2>
+    <button id="start-btn" class="btn-primary" type="button">Lanzar lote</button>
+    <span id="launch-status" class="hint"></span>
+  </section>
+
+  <section class="panel" id="panel-jobs">
+    <h2>Lotes</h2>
+    <div id="jobs-list"></div>
+  </section>
+</main>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
